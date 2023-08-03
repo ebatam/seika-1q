@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+		body {
+		font-family: 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', '游ゴシック', YuGothic, 'メイリオ', Meiryo, Arial, Roboto, 'Droid Sans', sans-serif;	/* body にゴシック対のフォントを設定 */
+		}
+		.container{
+			margin: 0 auto;
+			text-align: center;
+		}
+        form {
+            display: flex;
+            width: 400px;
+            flex-direction: column;
+            justify-content: stretch;
+        }
+        label {
+            display: flex;
+        }
+        span {
+            width: 100px;
+            margin-right: 1rem;
+        }
+        input {
+            flex-grow: 1;
+        }
+		h2 {
+			margin-top: 70px;
+			margin-left: 175px;
+			text-align: left;
+			font-size: 28px;
+			font-weight: lighter;
+		}
+		#item {
+			width: 1280px;
+			height: 5px;
+			background-color: #BE0024;
+			margin-bottom: 40px;
+		}
+		h2.text {
+			margin-top: -5px;
+			text-align: left;
+			font-size: 16px;
+		}
+
+		label{
+			margin-top: 25px;
+			margin-left: 175px;
+		}
+		input{
+			height: 30px;
+			width: 464px;
+			margin-top: 29px;
+			margin-left: 175px;
+			border-radius: 4px;
+			font-size: 18px;
+			border: 1px solid #D5D5D5;
+		}
+		button{
+			width: 248px;
+			height: 61px;
+			margin-top: 80px;
+			border-radius: 10px;
+			border: none;
+			color: white;
+			font-size: 24px;
+			background-color: #BE0024;
+			
+		}
+		.buttonC {
+			display: flex;
+			justify-content: center;
+		}
+		.red {
+                background-color: rgb(237, 209, 209);
+        }
+		.dialog-base {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        box-sizing: border-box;
+        padding: 30px;
+        background-color: rgba(0, 0, 0, 0.3);
+      	}
+      	.dialog {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 30px;
+        background-color: white;
+        border-radius: 10px;;
+      	}
+		.dialog{
+		text-align: center;
+		}
+
+    </style>
+</head>
+
+<body>
+	<div class="container">
+		<h2>新規登録</h2>
+		<div id="item"></div>
+		<h2 class="text">必要事項を入力してください。</h2>
+		<form onsubmit="onSubmit(event)">
+			<label>
+				1.氏名   
+			</label>
+			<input type="text" name="text" oninvalid="onInvalid(event)" oninput="onInput(event)" required></input>
+
+			<label>
+				2.氏名（フリガナ）
+			</label>
+			<input type="text" name="text" pattern="[\u30A1-\u30F6\s]*" oninvalid="onInvalid(event)" oninput="onInput(event)" required></input>
+
+			<label>
+				3.電話番号  
+			</label>
+			<input type="tel" name="tel" pattern="[0-9]{11}" oninvalid="onInvalid(event)" oninput="onInput(event)" required></input>
+
+			<label>
+				4.生年月日 
+			</label>
+			<input type="date" name="date" oninvalid="onInvalid(event)" oninput="onInput(event)" required></input>
+
+			<label>
+				5.メールアドレス
+			</label>
+			<input type="email" name="email" oninvalid="onInvalid(event)" oninput="onInput(event)" required></input>
+
+			<label>
+				6.パスワード
+			</label>
+			<input type="password" name="password" minlength="6" oninvalid="onInvalid(event)" oninput="onInput(event)" required></input>
+		</div>
+		<div class="buttonC">
+			<button type="submit" >登録完了</button>
+			<div class="dialog-base" hidden="hidden">
+				<div class="dialog">
+				  <p>ご登録ありがとうございます</p>
+				  <!-- <button onclick="closeDialog()">閉じる</button> -->
+				</div>
+			</div>
+		</div>	
+    </form>
+
+    <script>
+        function onSubmit(event) {
+            event.preventDefault();
+            let formData = new FormData(event.target);
+            for (data of formData) {
+                console.log(data[0], data[1]);
+            }
+			openDialog();
+        }
+		function onInput(event) {
+                event.currentTarget.classList.remove("red")
+        }
+        function onInvalid(event) {
+                event.currentTarget.classList.add("red")
+        }
+		
+		
+		let dialogBase = document.getElementsByClassName("dialog-base")[0];
+		console.log(dialogBase)
+		
+		function openDialog() {
+			dialogBase.removeAttribute("hidden");
+		}
+		function closeDialog() {
+			dialogBase.setAttribute("hidden", "hidden");
+		}
+		
+
+
+    </script>
+</body>
+
+</html>
